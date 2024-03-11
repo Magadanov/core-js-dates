@@ -226,16 +226,12 @@ function getNextFridayThe13th(date) {
   let year = date.getUTCFullYear();
   let month = date.getUTCMonth();
   const day = date.getUTCDate();
-
   if (day >= 13) {
     year = month === 11 ? year + 1 : year;
     month = month === 11 ? 0 : month + 1;
   }
 
-  while (true) {
-    if (new Date(year, month, 14).getUTCDay() === 5)
-      return new Date(year, month, 13);
-
+  while (new Date(year, month, 14).getUTCDay() !== 5) {
     if (month === 11) {
       year += 1;
       month = 0;
@@ -243,6 +239,7 @@ function getNextFridayThe13th(date) {
       month += 1;
     }
   }
+  return new Date(year, month, 13);
 }
 
 /**
