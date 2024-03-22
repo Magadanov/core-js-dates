@@ -108,7 +108,7 @@ function getCountDaysInMonth(month, year) {
  */
 function getCountDaysOnPeriod(dateStart, dateEnd) {
   const difference = new Date(dateEnd) - new Date(dateStart);
-  return Math.floor(difference / (1000 * 60 * 60 * 24)) + 1;
+  return difference / (1000 * 60 * 60 * 24) + 1;
 }
 
 /**
@@ -149,16 +149,13 @@ function isDateInPeriod(date, period) {
  * '2010-12-15T22:59:00.000Z' => '12/15/2010, 10:59:00 PM'
  */
 function formatDate(date) {
-  return new Date(date).toLocaleDateString('en-US', {
-    timeZone: 'UTC',
-    month: 'numeric',
-    day: 'numeric',
-    year: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
+  const currentDate = new Date(date);
+  const currentTime = currentDate.toLocaleTimeString('en-US', {
     hour12: true,
+    timeZone: 'UTC',
   });
+
+  return `${currentDate.getUTCMonth() + 1}/${currentDate.getUTCDate()}/${currentDate.getUTCFullYear()}, ${currentTime}`;
 }
 
 /**
