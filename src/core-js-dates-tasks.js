@@ -219,25 +219,23 @@ function getWeekNumberByDate(date) {
  * Date(2024, 0, 13) => Date(2024, 8, 13)
  * Date(2023, 1, 1) => Date(2023, 9, 13)
  */
-// function getNextFridayThe13th(date) {
-//   let year = date.getUTCFullYear();
-//   let month = date.getUTCMonth();
-//   const day = date.getUTCDate();
-//   if (day >= 13) {
-//     year = month === 11 ? year + 1 : year;
-//     month = month === 11 ? 0 : month + 1;
-//   }
+function getNextFridayThe13th(date) {
+  const currentYear = date.getFullYear();
 
-//   while (new Date(year, month, 14).getUTCDay() !== 5) {
-//     if (month === 11) {
-//       year += 1;
-//       month = 0;
-//     } else {
-//       month += 1;
-//     }
-//   }
-//   return new Date(year, month, 13);
-// }
+  let monthIndex = date.getMonth();
+  let next13friday;
+  while (date) {
+    next13friday = new Date(currentYear, monthIndex, 13);
+
+    if (next13friday.getDay() === 5) {
+      break;
+    }
+
+    monthIndex += 1;
+  }
+
+  return next13friday;
+}
 
 /**
  * Returns the quarter of the year for a given date.
@@ -343,7 +341,7 @@ module.exports = {
   formatDate,
   getCountWeekendsInMonth,
   getWeekNumberByDate,
-  // getNextFridayThe13th,
+  getNextFridayThe13th,
   getQuarter,
   getWorkSchedule,
   isLeapYear,
